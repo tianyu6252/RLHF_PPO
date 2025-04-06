@@ -36,7 +36,7 @@ class PPO:
         :return: actor loss 和 critic loss
         """
         """Calculate policy and value losses."""
-        loss = torch.tensor(0.0)
+        loss = torch.tensor(0.0, device=self.config.device)
         for new_prob, old_value, new_value, reward, old_prob in zip(new_probs, old_values, new_values, rewards,
                                                                     old_probs):
             new_prob = new_prob.unsqueeze(0)
@@ -66,6 +66,7 @@ class PPO:
             vf_loss = torch.mean(torch.max(vf_loss2, vf_loss1))
 
             ratio = torch.exp(new_prob - old_prob)  # 控制优化范围，防止训练离原始模型偏差过大
+            # print(f"policy ratio: {ratio}")
             pg_losses = -advantages * ratio  # importance sampling
             pg_losses2 = -advantages * torch.clamp(ratio,
                                                    1.0 - self.config.cliprange,

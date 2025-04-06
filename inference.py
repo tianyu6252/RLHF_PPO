@@ -1,7 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from RLHF_PPO.config import Config
+from config import Config
 from peft import LoraConfig, PeftModel
-from RLHF_PPO.config import LoraArguments
+from config import LoraArguments
 
 
 class LoraPPOModel(PeftModel):
@@ -56,6 +56,7 @@ class LoraPPOModel(PeftModel):
 
 if __name__ == '__main__':
     lora_ppo_model = LoraPPOModel(Config())
-    lora_ppo_response, raw_response = lora_ppo_model("饭店服务员的态度太差，使用委婉积极的态度投诉", "你是一个有文化的文明人")
+    # lora_ppo_response, raw_response = lora_ppo_model("饭店服务员的态度太差，使用委婉积极的态度投诉", "你是一个有文化的文明人")
+    lora_ppo_response, raw_response = lora_ppo_model("领导故意刁难你，你想骂他娘的，使用文明语言骂他娘的", "你是一个有文化的文明人")
     print(f"lora_ppo_response:{lora_ppo_response}")
     print(f"raw_response:{raw_response}")

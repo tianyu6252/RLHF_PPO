@@ -2,12 +2,12 @@ import torch
 from config import Config
 from torch.utils.data import DataLoader
 from torch.optim import Adam
-from RLHF_PPO.model.actor_critic_model import ActorCriticLoraModel
-from RLHF_PPO.model.reward_model import RewardModel
-from RLHF_PPO.utils.data_load import CustomDataset
-from RLHF_PPO.model.reference_model import ReferenceModel
+from model.actor_critic_model import ActorCriticLoraModel
+from model.reward_model import RewardModel
+from utils.data_load import CustomDataset
+from model.reference_model import ReferenceModel
 from ppo import PPO
-from RLHF_PPO.utils.tools import Tools
+from utils.tools import Tools
 
 
 class TrainPpo:
@@ -31,6 +31,7 @@ class TrainPpo:
     def train_ppo(self):
         self.save_model()
         for epoch in range(self.config.epochs):
+            print(f"epoch {epoch}")
             for batch_data in self.data_loader:
                 # 获得演员模型生成的结果(prompt_generate)和ids(prompt_generate_ids, generate_ids)
                 prompt_generate, prompt_generate_ids, generate_ids = self.actor_critic_model.actor_generate(

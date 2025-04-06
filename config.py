@@ -5,12 +5,12 @@ from dataclasses import dataclass, field
 class Config:
     # model 参数 ###########################
     # 情感分析模型，下载地址https://huggingface.co/IDEA-CCNL/Erlangshen-Roberta-330M-Sentiment
-    Sentiment_model = "E:\\ai_model\\model\\Erlangshen-Roberta-330M-Sentiment"
+    Sentiment_model = "/root/autodl-tmp/Erlangshen-Roberta-330M-Sentiment"
     # 文本生成模型,下载地址 https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat
-    gpt_model = "E:\\ai_model\\model\\qwen0.5"
+    gpt_model = "/root/autodl-tmp/qwen0.5"
     data_path = "data/train_data.json"
-    save_lora_path = "E:\\ai_model\\model\\ppo\\save_lora"
-    save_v_head_path = "E:\\ai_model\\model\\ppo\\v_head\\pytorch_model.bin"
+    save_lora_path = "/root/autodl-tmp/rlhf_ppo/save_lora"
+    save_v_head_path = "/root/autodl-tmp/rlhf_ppo/v_head/pytorch_model.bin"
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
     batch_size = 2
     epochs = 10
@@ -38,4 +38,4 @@ class LoraArguments:
     q_lora: bool = False
     load_in_4bit: bool = False
     load_in_8bit: bool = False
-    is_reload_trained_params = True  # 是否接着上次训练模型继续训练
+    is_reload_trained_params = False  # 是否接着上次训练模型继续训练

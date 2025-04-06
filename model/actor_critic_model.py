@@ -1,9 +1,9 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from RLHF_PPO.config import Config
-from RLHF_PPO.utils.tools import Tools
+from config import Config
+from utils.tools import Tools
 from peft import LoraConfig, get_peft_model, PeftModel
-from RLHF_PPO.config import LoraArguments
+from config import LoraArguments
 
 
 class LoraModel(PeftModel):
@@ -48,6 +48,7 @@ class ActorCriticLoraModel(torch.nn.Module):
 
     @torch.no_grad()
     def actor_generate(self, input_ids):
+        input_ids = input_ids.to(self.model.device)
         generated_ids = self.model.generate(input_ids, max_new_tokens=512, top_p=1.0,
                                             num_beams=1,
                                             do_sample=False)
